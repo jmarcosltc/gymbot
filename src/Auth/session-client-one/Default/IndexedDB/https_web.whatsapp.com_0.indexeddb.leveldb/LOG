@@ -1,0 +1,48 @@
+2023/06/03-20:42:53.762 1860 Reusing MANIFEST D:\Joao\Desenvolvimento\GymBot\src\Auth\session-client-one\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/06/03-20:42:53.763 1860 Recovering log #37
+2023/06/03-20:42:53.888 1860 Reusing old log D:\Joao\Desenvolvimento\GymBot\src\Auth\session-client-one\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000037.log 
+2023/06/03-20:45:58.065 1914 Level-0 table #42: started
+2023/06/03-20:45:58.226 1914 Level-0 table #42: 1139656 bytes OK
+2023/06/03-20:45:58.274 1914 Delete type=0 #37
+2023/06/03-20:45:58.742 338c Compacting 1@1 + 1@2 files
+2023/06/03-20:45:58.982 338c Generated table #43@1: 19436 keys, 803286 bytes
+2023/06/03-20:45:58.982 338c Compacted 1@1 + 1@2 files => 803286 bytes
+2023/06/03-20:45:59.070 338c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/03-20:45:59.071 338c Delete type=2 #39
+2023/06/03-20:45:59.071 338c Delete type=2 #42
+2023/06/03-20:59:04.312 23e8 Level-0 table #45: started
+2023/06/03-20:59:04.492 23e8 Level-0 table #45: 1086491 bytes OK
+2023/06/03-20:59:04.533 23e8 Delete type=0 #41
+2023/06/03-20:59:04.576 d2c Compacting 1@1 + 1@2 files
+2023/06/03-20:59:04.770 d2c Generated table #46@1: 27167 keys, 1153242 bytes
+2023/06/03-20:59:04.770 d2c Compacted 1@1 + 1@2 files => 1153242 bytes
+2023/06/03-20:59:04.807 d2c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/03-20:59:04.808 d2c Delete type=2 #43
+2023/06/03-20:59:04.808 d2c Delete type=2 #45
+2023/06/03-21:20:03.747 4f20 Level-0 table #48: started
+2023/06/03-21:20:03.884 4f20 Level-0 table #48: 1185157 bytes OK
+2023/06/03-21:20:03.908 4f20 Delete type=0 #44
+2023/06/03-21:20:14.177 338c Compacting 1@1 + 1@2 files
+2023/06/03-21:20:14.394 338c Generated table #49@1: 31184 keys, 1359057 bytes
+2023/06/03-21:20:14.394 338c Compacted 1@1 + 1@2 files => 1359057 bytes
+2023/06/03-21:20:14.437 338c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/03-21:20:14.437 338c Delete type=2 #46
+2023/06/03-21:20:14.437 338c Delete type=2 #48
+2023/06/03-21:27:18.864 386c Level-0 table #51: started
+2023/06/03-21:27:19.027 386c Level-0 table #51: 1124678 bytes OK
+2023/06/03-21:27:19.067 386c Delete type=0 #47
+2023/06/03-21:27:44.723 338c Compacting 1@1 + 1@2 files
+2023/06/03-21:27:44.977 338c Generated table #52@1: 34687 keys, 1537960 bytes
+2023/06/03-21:27:44.977 338c Compacted 1@1 + 1@2 files => 1537960 bytes
+2023/06/03-21:27:45.023 338c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/03-21:27:45.023 338c Delete type=2 #49
+2023/06/03-21:27:45.023 338c Delete type=2 #51
+2023/06/04-03:40:46.555 3ec0 Level-0 table #54: started
+2023/06/04-03:40:46.733 3ec0 Level-0 table #54: 1202203 bytes OK
+2023/06/04-03:40:46.785 3ec0 Delete type=0 #50
+2023/06/04-03:40:53.469 3ec0 Compacting 1@1 + 1@2 files
+2023/06/04-03:40:53.721 3ec0 Generated table #55@1: 38032 keys, 1697760 bytes
+2023/06/04-03:40:53.721 3ec0 Compacted 1@1 + 1@2 files => 1697760 bytes
+2023/06/04-03:40:53.789 3ec0 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/04-03:40:53.789 3ec0 Delete type=2 #52
+2023/06/04-03:40:53.789 3ec0 Delete type=2 #54
