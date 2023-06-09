@@ -1,6 +1,4 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {
   child,
   get,
@@ -11,11 +9,6 @@ import {
   update,
 } from "firebase/database";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCNgXYi03Ep9wczFYWn190uuD3FuB7N0RQ",
   authDomain: "gymbot-dm.firebaseapp.com",
@@ -26,7 +19,7 @@ const firebaseConfig = {
   measurementId: "G-GM2XYWBMW9",
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
 const adicionarTreino = async (userId: string, name: string) => {
@@ -34,23 +27,35 @@ const adicionarTreino = async (userId: string, name: string) => {
   const dbRef = ref(db);
   const newUserId = userId.slice(0, 12);
   await get(child(dbRef, `treinos/${newUserId}`))
-    .then((snapshot: any) => {
+    .then(async (snapshot: any) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
-        const treinos =
-          Number(snapshot.val().treinos) == undefined
-            ? 1
-            : Number(snapshot.val().treinos) + 1;
-        const treinosSemanais =
-          Number(snapshot.val().treinos_semanais) == undefined
-            ? 1
-            : Number(snapshot.val().treinos_semanais) + 1;
-        update(ref(db, `treinos/${newUserId}`), {
-          treinos: treinos,
-          nome: name,
-          treinos_semanais: treinosSemanais,
-          ultimo_treino: Date.now().toString(),
-        });
+        // @ts-ignore
+        if (await pegarQtdTreinos(newUserId) < 5) {
+          const treinos =
+              Number(snapshot.val().treinos) == undefined
+                  ? 1
+                  : Number(snapshot.val().treinos) + 1;
+          const treinosSemanais =
+              Number(snapshot.val().treinos_semanais) == undefined
+                  ? 1
+                  : Number(snapshot.val().treinos_semanais) + 1;
+          await update(ref(db, `treinos/${newUserId}`), {
+            treinos: treinos,
+            nome: name,
+            treinos_semanais: treinosSemanais,
+            ultimo_treino: Date.now().toString(),
+          });
+        } else {
+          const treinosSemanais =
+              Number(snapshot.val().treinos_semanais) == undefined
+                  ? 1
+                  : Number(snapshot.val().treinos_semanais) + 1;
+          await update(ref(db, `treinos/${newUserId}`), {
+            nome: name,
+            treinos_semanais: treinosSemanais,
+            ultimo_treino: Date.now().toString(),
+          });
+        }
       } else {
         console.log("No data available");
         update(ref(db, `treinos/${newUserId}`), {
@@ -73,7 +78,6 @@ export const pegarQtdTreinos = async (userId: string) => {
   const treinos = await get(child(dbRef, `treinos/${newUserId}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         const treinos = Number(snapshot.val().treinos);
         return treinos;
       } else {
@@ -93,7 +97,6 @@ export const pegarTodosTreinos = async () => {
   const treinos = await get(child(dbRef, `treinos`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         const treinos = snapshot.val();
         return treinos;
       } else {
@@ -106,6 +109,7 @@ export const pegarTodosTreinos = async () => {
 
   return treinos;
 };
+
 
 export const limparTreinosSemanais = async () => {
   const db = getDatabase();
@@ -130,6 +134,7 @@ export const limparTreinosSemanais = async () => {
       console.error(error);
     });
 
+  console.log("Treinos semanais limpos.");
   return treinos;
 };
 
@@ -148,10 +153,9 @@ export const jaTreinou = async (userId: string) => {
         const todayDay: number = todayDate.getDay();
 
         if (day == todayDay) {
-          console.log("It is not another day");
+          console.log("Ainda não é outro dia.");
           return true;
         } else {
-          console.log("It is another day");
           return false;
         }
 

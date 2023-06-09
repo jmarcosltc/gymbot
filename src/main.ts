@@ -23,7 +23,7 @@ client.on("qr", (qr: any) => {
 });
 
 client.on("ready", () => {
-  console.log("Client is ready!");
+  console.log("GymBOT está pronto.");
 });
 
 client.on("message", async (msg: any) => {
@@ -31,19 +31,16 @@ client.on("message", async (msg: any) => {
 
   if (!chat.isGroup) return;
   if (msg.isStatus) return;
-
-  //console.log(chat.id._serialized)
-
-  //console.log(msg)
   let nome = await msg.getContact();
   let nomeUser = nome.pushname;
 
-  // 120363153322528004@g.us
-  //120363027638141274@g.us <- projetin
-  if (chat.id._serialized === "120363027638141274@g.us") {
     if (msg.body == "!ping") {
       msg.reply("pong");
     }
+
+  // 120363153322528004@g.us
+  //120363027638141274@g.us <- projetin
+  if (chat.id._serialized === "120363027638141274@g.us" || chat.id._serialized === "120363153322528004@g.us") {
 
     if (msg.body == "!treinei") {
         if(await jaTreinou(msg.author)) {
@@ -54,15 +51,15 @@ client.on("message", async (msg: any) => {
       msg.reply(
         `Treino ${
           nomeUser == undefined ? "do " : "do " + nomeUser
-        } contabilizado com sucesso! ✅\nTotal de treinos: ${
+        } contabilizado com sucesso! ✅\nTotal de treinos: *${
           (await pegarQtdTreinos(msg.author)) || 0
-        }`
+        }*`
       ); //${treinos}
     } else if (msg.body == "!treino") {
       msg.reply(
-        `Contagem de treinos para ${nomeUser}: ${await pegarQtdTreinos(
+        `Contagem de treinos para ${nomeUser}: *${await pegarQtdTreinos(
           msg.author
-        ) || 0}`
+        ) || 0}*`
       );
     } else if (msg.body == "!treinos") {
       const todosTreinos = await pegarTodosTreinos();
@@ -96,75 +93,17 @@ client.on("message", async (msg: any) => {
     } else {
       if (msg.body[0] == "!") {
         chat.sendMessage(
-          "Não entendi. Para uma lista de comandos, digite: !ajuda"
+          "Desculpe, eu não reconheço esse comando. \nPara uma lista de comandos digite: *!ajuda*"
         );
       }
     }
   }
 
-  // if (chat.id._serialized === "120363153322528004@g.us") {
-  //   if (msg.body == "!ping") {
-  //     msg.reply("pong");
-  //   }
-  //
-  //   if (msg.body == "!treinei") {
-  //     if(await jaTreinou(msg.author)) {
-  //       msg.reply("Você já treinou hoje!");
-  //       return;
-  //     }
-  //     await adicionarTreino(msg.author, nomeUser);
-  //     msg.reply(
-  //         `Treino ${
-  //             nomeUser == undefined ? "do " : "do " + nomeUser
-  //         } contabilizado com sucesso! ✅\nTotal de treinos: ${
-  //             (await pegarQtdTreinos(msg.author)) || 0
-  //         }`
-  //     ); //${treinos}
-  //   } else if (msg.body == "!treino") {
-  //     msg.reply(
-  //         `Contagem de treinos para ${nomeUser}: ${await pegarQtdTreinos(
-  //             msg.author
-  //         ) || 0}`
-  //     );
-  //   } else if (msg.body == "!treinos") {
-  //     const todosTreinos = await pegarTodosTreinos();
-  //     let treinoMessage = "";
-  //     for (const treino in todosTreinos) {
-  //       console.log(
-  //           `${todosTreinos[treino].nome}: ${
-  //               todosTreinos[treino].treinos_semanais || 0
-  //           }`
-  //       );
-  //
-  //       treinoMessage += `${todosTreinos[treino].nome}: ${'✅'.repeat(todosTreinos[treino].treinos_semanais)}\n`;
-  //     }
-  //     chat.sendMessage("Treinos do grupo na semana:\n" + treinoMessage);
-  //   } else if (msg.body == "!total") {
-  //     const todosTreinos = await pegarTodosTreinos();
-  //     let treinoMessage = "";
-  //     for (const treino in todosTreinos) {
-  //       console.log(
-  //           `${todosTreinos[treino].nome}: ${todosTreinos[treino].treinos}`
-  //       );
-  //
-  //       treinoMessage += `${todosTreinos[treino].nome}: ${todosTreinos[treino].treinos}\n`;
-  //     }
-  //     chat.sendMessage("Treinos do grupo no total:\n" + treinoMessage);
-  //   } else if(msg.body == "!ajuda") {
-  //     chat.sendMessage("Comandos disponíveis:\n!treinei - Contabiliza um treino para você\n" +
-  //         "!treino - Mostra quantos treinos você tem\n" +
-  //         "!treinos - Mostra quantos treinos cada pessoa do grupo tem\n" +
-  //         "!total - Mostra quantos treinos cada pessoa do grupo tem no total")
-  //   } else {
-  //     if (msg.body[0] == "!") {
-  //       chat.sendMessage(
-  //           "Não entendi. Para uma lista de comandos, digite: !ajuda"
-  //       );
-  //     }
-  //   }
-  // }
 });
 
+/**
+ * @returns {void}
+ */
 const clearVariable = () => {
   limparTreinosSemanais();
   console.log("Variable cleared.");
