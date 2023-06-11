@@ -9,7 +9,7 @@ import adicionarTreino, {
   pegarTodosTreinos,
 } from "./firebase";
 import { pegarQtdTreinos } from "./firebase";
-import changelog from './helpers/Changelog';
+import changelog, {nextOnRoadMap} from './helpers/Changelog';
 const cron = require("node-cron");
 
 
@@ -98,6 +98,8 @@ client.on("message", async (msg: any) => {
       chat.sendMessage("*Versão 1.0.2\n*" +
         changelog()
       )
+    } else if(msg.body == "!roadmap") {
+      chat.sendMessage(nextOnRoadMap())
     } else {
       if (msg.body[0] == "!") {
         chat.sendMessage(

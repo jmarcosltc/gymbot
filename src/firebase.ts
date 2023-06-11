@@ -8,15 +8,16 @@ import {
   set,
   update,
 } from "firebase/database";
+import 'dotenv/config';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCNgXYi03Ep9wczFYWn190uuD3FuB7N0RQ",
-  authDomain: "gymbot-dm.firebaseapp.com",
-  projectId: "gymbot-dm",
-  storageBucket: "gymbot-dm.appspot.com",
-  messagingSenderId: "723960606884",
-  appId: "1:723960606884:web:914587884e2839c1817631",
-  measurementId: "G-GM2XYWBMW9",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT,
 };
 
 
