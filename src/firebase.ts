@@ -1,3 +1,4 @@
+require('dotenv').config({path: "../.env"})
 import { initializeApp } from "firebase/app";
 import {
   child,
@@ -8,7 +9,6 @@ import {
   set,
   update,
 } from "firebase/database";
-import 'dotenv/config';
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
