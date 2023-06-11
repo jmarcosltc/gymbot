@@ -1,5 +1,6 @@
 "use strict";
 
+import printWithChance from "./helpers/Eastereggs";
 const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 import adicionarTreino, {
@@ -8,7 +9,9 @@ import adicionarTreino, {
   pegarTodosTreinos,
 } from "./firebase";
 import { pegarQtdTreinos } from "./firebase";
+import changelog from './helpers/Changelog';
 const cron = require("node-cron");
+
 
 const client = new Client({
   authStrategy: new LocalAuth({
