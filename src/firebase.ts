@@ -30,7 +30,7 @@ const adicionarTreino = async (userId: string, name: string) => {
     .then(async (snapshot: any) => {
       if (snapshot.exists()) {
         // @ts-ignore
-        if (await pegarQtdTreinos(newUserId) < 5) {
+        if (Number(snapshot.val().treinos_semanais < 5)) {
           const treinos =
               Number(snapshot.val().treinos) == undefined
                   ? 1

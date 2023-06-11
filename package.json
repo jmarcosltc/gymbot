@@ -1,6 +1,6 @@
 {
     "name": "whatsapp-gymbot",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "BOT para ajudar a acompanhar treinos de academia.",
     "main": "main.ts",
   "author": "João Marcos Carneiro",

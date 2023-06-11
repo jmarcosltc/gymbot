@@ -89,7 +89,12 @@ client.on("message", async (msg: any) => {
         chat.sendMessage("Comandos disponíveis:\n!treinei - Contabiliza um treino para você\n" +
             "!treino - Mostra quantos treinos você tem\n" +
             "!treinos - Mostra quantos treinos cada pessoa do grupo tem\n" +
-            "!total - Mostra quantos treinos cada pessoa do grupo tem no total")
+            "!total - Mostra quantos treinos cada pessoa do grupo tem no total" +
+            "!changelog - Mostra mudanças na ultima atualização do bot")
+    } else if(msg.body == "!changelog") {
+      chat.sendMessage("*Versão 1.0.2\n*" +
+        changelog()
+      )
     } else {
       if (msg.body[0] == "!") {
         chat.sendMessage(
@@ -97,6 +102,8 @@ client.on("message", async (msg: any) => {
         );
       }
     }
+
+    if(printWithChance()) try {msg.react("🏳️‍🌈")} catch (e) { console.log("Erro ao reagir com emoji.") }
   }
 
 });
