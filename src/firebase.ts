@@ -1,14 +1,6 @@
 require('dotenv').config({path: "../.env"})
-import { initializeApp } from "firebase/app";
-import {
-  child,
-  get,
-  getDatabase,
-  ref,
-  remove,
-  set,
-  update,
-} from "firebase/database";
+import {initializeApp} from "firebase/app";
+import {child, get, getDatabase, ref, update,} from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -92,14 +84,35 @@ export const pegarQtdTreinos = async (userId: string) => {
   return treinos;
 };
 
+export const pegarQtdTreinosSemanais = async (userId: string) => {
+  const db = getDatabase();
+  const dbRef = ref(db);
+  const newUserId = userId.slice(0, 12);
+  const treinos = await get(child(dbRef, `treinos/${newUserId}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const treinos = Number(snapshot.val().treinos_semanais);
+          return treinos;
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  return treinos;
+};
+
 export const pegarTodosTreinos = async () => {
   const db = getDatabase();
   const dbRef = ref(db);
   const treinos = await get(child(dbRef, `treinos`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const treinos = snapshot.val();
-        return treinos;
+        const dataArray: any = Object.entries(snapshot.val());
+        dataArray.sort((a: any, b: any) => b[1].treinos - a[1].treinos);
+        return Object.fromEntries(dataArray);
       } else {
         console.log("No data available");
       }
@@ -170,5 +183,34 @@ export const jaTreinou = async (userId: string) => {
 
   return treinos;
 };
+
+export async function addTreino(userName: string, quantidade: number) {
+  const db = getDatabase();
+  const dbRef = ref(db);
+  const treinos = await get(child(dbRef, `treinos`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let treino: any;
+          for (treino of Object.entries(snapshot.val())) {
+            if(treino[1].nome == userName){
+                update(ref(db, `treinos/${treino[0]}`), {
+                    treinos: Number(treino[1].treinos) + quantidade,
+                    treinos_semanais: Number(treino[1].treinos_semanais) + quantidade,
+                    ultimo_treino: Date.now().toString(),
+                });
+            }
+          }
+          return snapshot.val();
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+
+  return treinos;
+}
 
 export default adicionarTreino;

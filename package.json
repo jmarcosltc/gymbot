@@ -1,10 +1,11 @@
 {
     "name": "whatsapp-gymbot",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "BOT para ajudar a acompanhar treinos de academia.",
     "main": "main.ts",
     "author": "João Marcos Carneiro",
     "scripts": {
+        "firebase-dev": "cd src && ts-node firebase.ts",
         "start": "cd src && ts-node main.ts"
     },
     "dependencies": {
