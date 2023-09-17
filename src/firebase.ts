@@ -184,7 +184,7 @@ export const jaTreinou = async (userId: string) => {
   return treinos;
 };
 
-export async function addTreino(userName: string, quantidade: number) {
+export async function addTreinoGeral(userName: string, quantidade: number) {
   const db = getDatabase();
   const dbRef = ref(db);
   const treinos = await get(child(dbRef, `treinos`))
@@ -193,10 +193,8 @@ export async function addTreino(userName: string, quantidade: number) {
           let treino: any;
           for (treino of Object.entries(snapshot.val())) {
             if(treino[1].nome == userName){
-                update(ref(db, `treinos/${treino[0]}`), {
-                    treinos: Number(treino[1].treinos) + quantidade,
-                    treinos_semanais: Number(treino[1].treinos_semanais) + quantidade,
-                    ultimo_treino: Date.now().toString(),
+                update(ref(db, `total_de_treinos/${treino[0]}`), {
+                    total_de_treinos: Number(treino[1].treinos) + quantidade,
                 });
             }
           }

@@ -4,6 +4,7 @@ import printWithChance, {botLoves} from "./helpers/Eastereggs";
 const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 import adicionarTreino, {
+  addTreinoGeral,
   jaTreinou,
   limparTreinosSemanais, pegarQtdTreinosSemanais,
   pegarTodosTreinos,
@@ -55,17 +56,16 @@ client.on("message", async (msg: any) => {
   if (chat.id._serialized === "120363027638141274@g.us") { // || chat.id._serialized === "120363153322528004@g.us"
 
     if (msg.body == "!treinei") {
+      addTreinoGeral(msg.author, nomeUser);
         if(await jaTreinou(msg.author)) {
-            msg.reply("⚠️ Você já treinou hoje! Treino não contabilizado.");
+            msg.reply("⚠️ Você já treinou hoje! Treino não contabilizado para os treinos da aposta, apenas para o *total de treinos*.");
             return;
         }
       await adicionarTreino(msg.author, nomeUser);
       msg.reply(
         `Treino ${
           nomeUser == undefined ? "do " : "do " + nomeUser
-        } contabilizado com sucesso! ✅\n
-        Total de treinos na semana: *${(await pegarQtdTreinosSemanais(msg.author)) || 0}*\n
-        Treinos no total: *${(await pegarQtdTreinos(msg.author)) || 0}*`
+        } contabilizado com sucesso! ✅\nTotal de treinos na semana: *${(await pegarQtdTreinosSemanais(msg.author)) || 0}*\nTreinos no total: *${(await pegarQtdTreinos(msg.author)) || 0}*`
       ); //${treinos}
     } else if (msg.body == "!treino") {
       msg.reply(
@@ -104,7 +104,7 @@ client.on("message", async (msg: any) => {
             "!total - Mostra quantos treinos cada pessoa do grupo tem no total\n" +
             "!changelog - Mostra mudanças na ultima atualização do bot")
     } else if(msg.body == "!changelog") {
-      chat.sendMessage("*Versão 1.0.3\n\n*" +
+      chat.sendMessage("*Versão 1.1.0\n\n*" +
         changelog()
       )
     } else if(msg.body == "!roadmap") {
