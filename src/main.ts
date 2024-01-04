@@ -41,6 +41,10 @@ client.on("ready", (): void => {
   console.log("GymBOT está pronto para uso.");
 });
 
+client.on("disconnected", (reason: any): void => {
+  client.sendMessage("120363027638141274@g.us", "GymBOT Foi desconectado :( \nMotivo: " + reason + "\nVai se fuder Whatsapp.");
+})
+
 client.on("message", async (msg: any) => {
   const chat = await msg.getChat();
 
@@ -56,7 +60,6 @@ client.on("message", async (msg: any) => {
   if (chat.id._serialized === "120363027638141274@g.us") { // || chat.id._serialized === "120363153322528004@g.us"
 
     if (msg.body == "!treinei") {
-      addTreinoGeral(msg.author, nomeUser);
         if(await jaTreinou(msg.author)) {
             msg.reply("⚠️ Você já treinou hoje! Treino não contabilizado para os treinos da aposta, apenas para o *total de treinos*.");
             return;
@@ -101,14 +104,7 @@ client.on("message", async (msg: any) => {
         chat.sendMessage("Comandos disponíveis:\n!treinei - Contabiliza um treino para você\n" +
             "!treino - Mostra quantos treinos você tem\n" +
             "!treinos - Mostra quantos treinos cada pessoa do grupo tem\n" +
-            "!total - Mostra quantos treinos cada pessoa do grupo tem no total\n" +
-            "!changelog - Mostra mudanças na ultima atualização do bot")
-    } else if(msg.body == "!changelog") {
-      chat.sendMessage("*Versão 1.1.0\n\n*" +
-        changelog()
-      )
-    } else if(msg.body == "!roadmap") {
-      chat.sendMessage(nextOnRoadMap())
+            "!total - Mostra quantos treinos cada pessoa do grupo tem no total\n")
     } else {
       if (msg.body[0] == "!") {
         chat.sendMessage(
@@ -130,4 +126,7 @@ const clearVariable = (): void => {
 
 cron.schedule("59 23 * * 6", clearVariable);
 
-client.initialize().then(() => console.log("Client initialized."));
+client.initialize().then(() => {
+  client.sendMessage("120363027638141274@g.us", "GymBOT Iniciado com sucesso!")
+  console.log("Client initialized.")
+});
